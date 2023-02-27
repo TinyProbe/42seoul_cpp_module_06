@@ -6,23 +6,86 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 19:43:19 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/17 22:49:30 by tkong            ###   ########.fr       */
+/*   Updated: 2023/02/27 16:26:07 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ScalarConverter.hpp"
 #include <iostream>
-#include "CharFormatter.hpp"
-#include "IntFormatter.hpp"
-#include "FloatFormatter.hpp"
-#include "DoubleFormatter.hpp"
+#include <float.h>
 
 int main(int ac, char** av) {
 	if (ac != 2) {
+		std::cout << "error: too little/many arguments\n";
 		return 1;
+	} else if (strlen(av[1]) == 0) {
+		std::cout << "error: argument cannot be empty\n";
+		return 2;
 	}
 	std::string arg(av[1]);
-	std::cout << "char: " << CharFormatter(arg).format() << '\n';
-	std::cout << "int: " << IntFormatter(arg).format() << '\n';
-	std::cout << "float: " << FloatFormatter(arg).format() << '\n';
-	std::cout << "double: " << DoubleFormatter(arg).format() << '\n';
+	int type = ScalarConverter::detectType(arg);
+	if (type == ERR__) {
+		std::cout << "char: impossible\n";
+		std::cout << "int: impossible\n";
+		std::cout << "float: impossible\n";
+		std::cout << "double: impossible\n";
+		return 0;
+	}
+	char   c = (type == CHR__ ? ScalarConverter::convert<char>(arg)   : 0);
+	int    i = (type == INT__ ? ScalarConverter::convert<int>(arg)    : 0);
+	float  f = (type == FLT__ ? ScalarConverter::convert<float>(arg)  : 0);
+	double d = (type == DBL__ ? ScalarConverter::convert<double>(arg) : 0);
+	int ctype = CHR__, itype = INT__, ftype = FLT__;
+	switch (type) {
+		case CHR__:
+			i = static_cast<int>(c);
+			f = static_cast<float>(c);
+			d = static_cast<double>(c);
+			break;
+		case INT__:
+			if (!std::isprint(i)) {
+				ctype = NONE__;
+			}
+			c = static_cast<char>(i);
+			f = static_cast<float>(i);
+			d = static_cast<double>(i);
+			break;
+		case FLT__: {
+			float int_min = (float) INT_MIN, int_max = (float) INT_MAX;
+			if (f > int_max || f < int_min || arg == "nan") {
+				ctype = ERR__;
+				itype = ERR__;
+			} else if (!std::isprint(f)) {
+				ctype = NONE__;
+			}
+			c = static_cast<char>(f);
+			i = static_cast<int>(f);
+			d = static_cast<double>(f);
+		} break;
+		case DBL__: {
+			double int_min = (double) INT_MIN, int_max = (double) INT_MAX;
+			double flt_max = (double) FLT_MAX;
+			double flt_min = -flt_max;
+			if (d > flt_max || d < flt_min) {
+				if (arg.find("inf") == std::string::npos) {
+					ftype = ERR__;
+				}
+				ctype = ERR__;
+				itype = ERR__;
+			} else if (d > int_max || d < int_min || arg == "nan") {
+				ctype = ERR__;
+				itype = ERR__;
+			} else if (!std::isprint(d)) {
+				ctype = NONE__;
+			}
+			c = static_cast<char>(d);
+			i = static_cast<int>(d);
+			f = static_cast<float>(d);
+		} break;
+		default: break;
+	}
+	std::cout << "char: "   << ScalarConverter::format(c, ctype) << '\n';
+	std::cout << "int: "    << ScalarConverter::format(i, itype) << '\n';
+	std::cout << "float: "  << ScalarConverter::format(f, ftype) << '\n';
+	std::cout << "double: " << ScalarConverter::format(d, DBL__) << '\n';
 }
