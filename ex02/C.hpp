@@ -6,7 +6,7 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 05:30:26 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/18 05:50:53 by tkong            ###   ########.fr       */
+/*   Updated: 2023/02/27 18:35:18 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,8 @@
 #ifndef C_HPP
 #define C_HPP
 
-#include "ABase.hpp"
+#include "Base.hpp"
 
-class C : public ABase {
-
-public:
-	virtual ~C();
-	virtual void printIdentify() const;
-
-};
+class C : public Base {};
 
 #endif

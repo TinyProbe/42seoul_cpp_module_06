@@ -6,20 +6,18 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 05:30:22 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/18 05:38:27 by tkong            ###   ########.fr       */
+/*   Updated: 2023/02/27 18:34:58 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef ABASE_HPP
-#define ABASE_HPP
+#ifndef BASE_HPP
+#define BASE_HPP
 
-class ABase {
+class Base {
 
 public:
-	virtual ~ABase();
-	virtual void printIdentify() const = 0;
-
+	virtual ~Base();
 };
 
 #endif

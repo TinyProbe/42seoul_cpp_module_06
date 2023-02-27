@@ -6,15 +6,8 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 05:30:26 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/18 06:09:55 by tkong            ###   ########.fr       */
+/*   Updated: 2023/02/27 18:34:50 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "B.hpp"
-#include <iostream>
-
-B::~B() {}
-
-void B::printIdentify() const {
-	std::cout << "B\n";
-}
