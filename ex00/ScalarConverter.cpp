@@ -117,13 +117,13 @@ int ScalarConverter::detectType(std::string &arg) {
 			? true : error);
 	}
 	int type = ERR__;
-	type = (arg.size() == 1ul                    ? CHR__ : type);
-	type = (integer                              ? INT__ : type);
-	type = (integer && float_point               ? DBL__ : type);
-	type = (integer && float_point && float_sign ? FLT__ : type);
-	type = (arg.size() != 1ul && error           ? ERR__ : type);
-	type = (!float_point      && float_sign      ? ERR__ : type);
-	type = (float_point > 1   || float_sign > 1  ? ERR__ : type);
+	type = (arg.size() == 1ul                           ? CHR__ : type);
+	type = (integer                                     ? INT__ : type);
+	type = (integer && float_point                      ? DBL__ : type);
+	type = (integer && float_point && float_sign        ? FLT__ : type);
+	type = (arg.size() != 1ul && error                  ? ERR__ : type);
+	type = (type != CHR__ && !float_point && float_sign ? ERR__ : type);
+	type = (float_point > 1 || float_sign > 1           ? ERR__ : type);
 	std::string int_min, int_max, flt_min, flt_max, dbl_min, dbl_max;
 	std::stringstream ss;
 	ss << std::fixed
