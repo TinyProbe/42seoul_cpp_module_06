@@ -31,11 +31,10 @@ int main(int ac, char **av) {
 		std::cout << "double: impossible\n";
 		return 0;
 	}
-	char   c = (type == CHR__ ? ScalarConverter::convert<char>(arg)   : 0);
+	char   c = (type == CHR__ ? arg[0]                                : 0);
 	int    i = (type == INT__ ? ScalarConverter::convert<int>(arg)    : 0);
 	float  f = (type == FLT__ ? ScalarConverter::convert<float>(arg)  : 0);
 	double d = (type == DBL__ ? ScalarConverter::convert<double>(arg) : 0);
-	if (arg.size() == 1 && std::isspace(arg[0])) { c = arg[0]; }
 	int ctype = CHR__, itype = INT__, ftype = FLT__;
 	switch (type) {
 		case CHR__:
