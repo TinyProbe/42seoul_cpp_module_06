@@ -102,19 +102,19 @@ int ScalarConverter::detectType(std::string& arg) {
 	bool inf          = (arg == "inf"  || arg == "-inf"  || arg == "+inf");
 	bool nanf         = (arg == "nanf");
 	bool nan          = (arg == "nan");
-	std::string allow = "+-.f";
 	if (inff || nanf) {
 		arg.pop_back();
 		return FLT__;
 	} else if (inf || nan) {
 		return DBL__;
 	}
+	std::string allow = "+-.f";
 	for (int i = 0; i < (int) arg.size(); ++i) {
 		integer     += (std::isdigit(arg[i]) ? 1 : 0);
 		float_point += (arg[i] == '.'        ? 1 : 0);
 		float_sign  += (arg[i] == 'f'        ? 1 : 0);
 		error = (!std::isdigit(arg[i]) && allow.find_first_of(arg[i]) == std::string::npos
-				? true : error);
+			? true : error);
 	}
 	int type = ERR__;
 	type = (arg.size() == 1ul                    ? CHR__  : type);

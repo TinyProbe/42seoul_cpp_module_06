@@ -25,4 +25,6 @@ int main() {
 	} else {
 		std::cout << "unsame\n";
 	}
+	std::cout << data.i << ' ' << data.f << '\n';
+	std::cout << p2->i << ' ' << p2->f << '\n';
 }

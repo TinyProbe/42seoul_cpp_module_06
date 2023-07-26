@@ -14,7 +14,7 @@
 #include <iostream>
 #include <float.h>
 
-int main(int ac, char** av) {
+int main(int ac, char **av) {
 	if (ac != 2) {
 		std::cout << "error: too little/many arguments\n";
 		return 1;
@@ -89,3 +89,4 @@ int main(int ac, char** av) {
 	std::cout << "float: "  << ScalarConverter::format(f, ftype) << '\n';
 	std::cout << "double: " << ScalarConverter::format(d, DBL__) << '\n';
 }
+

@@ -26,8 +26,14 @@
 
 class ScalarConverter {
 
+private:
+	ScalarConverter();
+	ScalarConverter(const ScalarConverter &rhs);
+	~ScalarConverter();
+	ScalarConverter &operator=(const ScalarConverter &rhs);
+
 public:
-	static int detectType(std::string& arg);
+	static int detectType(std::string &arg);
 	template <class T> static T convert(std::string arg) {
 		T rtn;
 		std::istringstream(arg) >> rtn;
@@ -36,35 +42,31 @@ public:
 	template <class T> static std::string format(T arg, int type) {
 		std::stringstream ss;
 		ss << arg;
-		std::string rtn, val;
+		std::string val;
 		ss >> val;
 		switch (type) {
 			case CHR__:
-				rtn = '\'' + val + '\'';
+				val = '\'' + val + '\'';
 				break;
-			case INT__:
-				rtn = val;
-				break;
+			case INT__: break;
 			case FLT__:
-				rtn = val;
-				rtn += (val.find(".") == std::string::npos
-						&& val != "inf"
-						&& val != "nan" ? ".0f" : "f");
+				val += (val.find(".") == std::string::npos
+						&& val.find("inf") == std::string::npos
+						&& val.find("nan") == std::string::npos ? ".0f" : "f");
 				break;
 			case DBL__:
-				rtn = val;
-				rtn += (val.find(".") == std::string::npos
-						&& val != "inf"
-						&& val != "nan" ? ".0" : "");
+				val += (val.find(".") == std::string::npos
+						&& val.find("inf") == std::string::npos
+						&& val.find("nan") == std::string::npos ? ".0" : "");
 				break;
 			case ERR__:
-				rtn = "impossible";
+				val = "impossible";
 				break;
 			default:
-				rtn = "Non displayable";
+				val = "Non displayable";
 				break;
 		}
-		return rtn;
+		return val;
 	}
 
 };
