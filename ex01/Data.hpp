@@ -14,22 +14,9 @@
 #ifndef DATA_HPP
 #define DATA_HPP
 
-class Data {
+struct Data {
 	int i;
 	float f;
-
-public:
-	Data();
-	Data(const Data& rhs);
-	Data(int i, float f);
-	virtual ~Data();
-	virtual Data operator=(const Data& rhs);
-
-	virtual int getI() const;
-	virtual float getF() const;
-	virtual void setI(int i);
-	virtual void setF(float f);
-
 };
 
 #endif

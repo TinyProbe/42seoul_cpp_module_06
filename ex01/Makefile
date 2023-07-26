@@ -16,7 +16,6 @@ OPT = -Wall -Wextra -Werror -std=c++98 -O2 -o $(NAME)
 INC = Serializer.hpp\
 	  Data.hpp
 SRC = Serializer.cpp\
-	  Data.cpp\
 	  main.cpp
 
 $(NAME): $(INC) $(SRC) Makefile

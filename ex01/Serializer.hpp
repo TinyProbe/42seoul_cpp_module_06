@@ -16,17 +16,19 @@
 
 #include <iostream>
 
-class Data;
+struct Data;
 class Serializer {
 
-public:
+private:
 	Serializer();
-	Serializer(const Serializer& rhs);
-	virtual ~Serializer();
-	virtual Serializer operator=(const Serializer& rhs);
+	Serializer(const Serializer &rhs);
+	~Serializer();
+	Serializer operator=(const Serializer &rhs);
 
-	virtual uintptr_t serialize(Data* ptr);
-	virtual Data* deserialize(uintptr_t raw);
+public:
+
+	static uintptr_t serialize(Data *ptr);
+	static Data *deserialize(uintptr_t raw);
 
 };
 

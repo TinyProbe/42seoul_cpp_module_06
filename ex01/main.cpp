@@ -14,12 +14,13 @@
 #include "Data.hpp"
 
 int main() {
-	Serializer slz;
-	Data data(10, 123.123f);
+	Data data;
+	data.i = 10;
+	data.f = 12.12f;
 
-	uintptr_t p1 = slz.serialize(&data);
-	Data* p2 = slz.deserialize(p1);
-	if (p1 == (uintptr_t) p2) {
+	uintptr_t p1 = Serializer::serialize(&data);
+	Data *p2 = Serializer::deserialize(p1);
+	if (&data == p2) {
 		std::cout << "same\n";
 	} else {
 		std::cout << "unsame\n";
