@@ -6,7 +6,7 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 13:07:22 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/27 15:58:36 by tkong            ###   ########.fr       */
+/*   Updated: 2023/07/26 15:04:36 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <sstream>
 #include <float.h>
 
-static void delback(std::string& s) {
+static void delback(std::string &s) {
 	if (s.size() && s.back() == 'f') {
 		s.pop_back();
 	}
@@ -93,7 +93,7 @@ static int _flt_cmp(std::string l, std::string r) {
 	return 0;
 }
 
-int ScalarConverter::detectType(std::string& arg) {
+int ScalarConverter::detectType(std::string &arg) {
 	int integer       = 0;
 	int float_point   = 0;
 	int float_sign    = 0;
@@ -117,10 +117,10 @@ int ScalarConverter::detectType(std::string& arg) {
 			? true : error);
 	}
 	int type = ERR__;
-	type = (arg.size() == 1ul                    ? CHR__  : type);
-	type = (integer                              ? INT__  : type);
-	type = (integer && float_point               ? DBL__  : type);
-	type = (integer && float_point && float_sign ? FLT__  : type);
+	type = (arg.size() == 1ul                    ? CHR__ : type);
+	type = (integer                              ? INT__ : type);
+	type = (integer && float_point               ? DBL__ : type);
+	type = (integer && float_point && float_sign ? FLT__ : type);
 	type = (arg.size() != 1ul && error           ? ERR__ : type);
 	type = (!float_point      && float_sign      ? ERR__ : type);
 	type = (float_point > 1   || float_sign > 1  ? ERR__ : type);

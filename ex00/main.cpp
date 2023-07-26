@@ -6,7 +6,7 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 19:43:19 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/27 16:26:07 by tkong            ###   ########.fr       */
+/*   Updated: 2023/07/26 15:30:21 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int main(int ac, char **av) {
 	int    i = (type == INT__ ? ScalarConverter::convert<int>(arg)    : 0);
 	float  f = (type == FLT__ ? ScalarConverter::convert<float>(arg)  : 0);
 	double d = (type == DBL__ ? ScalarConverter::convert<double>(arg) : 0);
+	if (arg.size() == 1 && std::isspace(arg[0])) { c = arg[0]; }
 	int ctype = CHR__, itype = INT__, ftype = FLT__;
 	switch (type) {
 		case CHR__:
