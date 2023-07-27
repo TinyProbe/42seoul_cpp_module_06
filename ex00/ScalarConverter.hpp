@@ -6,7 +6,7 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 13:07:22 by tkong             #+#    #+#             */
-/*   Updated: 2023/07/26 15:21:19 by tkong            ###   ########.fr       */
+/*   Updated: 2023/07/27 12:21:03 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ private:
 public:
 	static int detectType(std::string &arg);
 	template <class T> static T convert(std::string arg) {
-		T rtn;
-		std::stringstream(arg) >> rtn;
-		return rtn;
+		std::stringstream ss;
+		T val;
+		ss << arg;
+		ss >> val;
+		return val;
 	}
 	template <class T> static std::string format(T arg, int type) {
 		std::stringstream ss;
