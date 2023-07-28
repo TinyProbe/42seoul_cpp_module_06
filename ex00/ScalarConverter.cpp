@@ -6,7 +6,7 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 13:07:22 by tkong             #+#    #+#             */
-/*   Updated: 2023/07/27 12:28:27 by tkong            ###   ########.fr       */
+/*   Updated: 2023/07/28 09:57:53 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,10 @@ int ScalarConverter::detectType(std::string &arg) {
 	int integer       = 0;
 	int float_point   = 0;
 	int float_sign    = 0;
+	int pp            = -1;
+	int mm            = -1;
+	int fp            = -1;
+	int fs            = -1;
 	bool error        = false;
 	bool inff         = (arg == "inff" || arg == "-inff" || arg == "+inff");
 	bool inf          = (arg == "inf"  || arg == "-inf"  || arg == "+inf");
@@ -110,9 +114,11 @@ int ScalarConverter::detectType(std::string &arg) {
 	}
 	std::string allow = "+-.f";
 	for (int i = 0; i < (int) arg.size(); ++i) {
-		integer     += (std::isdigit(arg[i]) ? 1 : 0);
-		float_point += (arg[i] == '.'        ? 1 : 0);
-		float_sign  += (arg[i] == 'f'        ? 1 : 0);
+		integer     += (std::isdigit(arg[i]) ?         1 : 0);
+		float_point += (arg[i] == '.'        ? fp = i, 1 : 0);
+		float_sign  += (arg[i] == 'f'        ? fs = i, 1 : 0);
+		pp           = (arg[i] == '+'        ?         i : pp);
+		mm           = (arg[i] == '-'        ?         i : mm);
 		error = (!std::isdigit(arg[i]) && allow.find_first_of(arg[i]) == std::string::npos
 			? true : error);
 	}
@@ -124,6 +130,9 @@ int ScalarConverter::detectType(std::string &arg) {
 	type = (arg.size() != 1ul && error                  ? ERR__ : type);
 	type = (type != CHR__ && !float_point && float_sign ? ERR__ : type);
 	type = (float_point > 1 || float_sign > 1           ? ERR__ : type);
+	type = (pp > 0          || mm > 0                   ? ERR__ : type);
+	type = ((type == FLT__ || type == DBL__) && fp == 0 ? ERR__ : type);
+	type = (type == FLT__ && fs != (long)arg.size()-1   ? ERR__ : type);
 	std::string int_min, int_max, flt_min, flt_max, dbl_min, dbl_max;
 	std::stringstream ss;
 	ss << std::fixed
